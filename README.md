@@ -139,3 +139,13 @@ N'oublions pas d'ajouter `php-poo-mvc.dev` dans notre fichier `etc/hosts` pour l
 Maintenant activons notre **VirtualHost** avec la commande suivante : `sudo a2ensite php-poo-mvc`. Et enfin pour activer notre nouvelle configuration, il faut relancer **apache2** avec la commande suivante `sudo service apache2 reload`.
 
 Revenons un instant sur notre **VirtualHost**, il y a une ligne que j'aimerais détailler : `SetEnv ENV "dev"`. Comme vous le savez, lorsque nous travaillons en local, et donc en environnement de développement, il est intelligent de distinguer les différents environnement, car peut être qu'en production nous n'afficherons pas les erreurs de PHP. C'est pour cela, que j'ai créé une variable d'environnement qui s'appelle `ENV`.
+
+## v0.5 - Classe Request
+
+On va pouvoir commencer à implémenter notre première classe. Comme vous êtesz censé le savoir, lorsqu'un utilisateur va sur une page web, une requête est envoyé au serveur web, ce dernier effectue un traitement puis renvoie une réponse en HTML.
+
+Nous allons donc commencer par implémenter la classe `Request`. Cette classe nous permettra de gérer facilement les [superglobales de PHP](http://php.net/manual/fr/language.variables.superglobals.php). Cela nous permettra de récupérer toutes les informations de la requête envoyée par l'utilisateur.
+
+À ce stade, vous êtes censé pouvoir comprendre facilement la classe `Request`. La méthode static `createFromGlobals` permet de récupérer une instance de notre classe `Request`, en suvant légèrement les principes du **Singleton**.
+
+Modifions maintenant un petit peu notre fichier `web/index.php` pour prendre en compte
