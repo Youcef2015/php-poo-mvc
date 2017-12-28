@@ -6,6 +6,7 @@
 * [ ] Avoir de solides connaissances en POO
 * [ ] Connaître les grands principes de MVC
 * [ ] Savoir utiliser composer
+* [ ] Maîtriser l'autoload
 
 ## v0.1 - Initialisation du projet
 
@@ -101,3 +102,40 @@ Generating autoload files
 Vous avez sans doute remarqué qu'un nouveau dossier a vu le jour `vendor`. Ce dossier contient les fichiers nécessaire à la gestion de l'autoload par composer, mais contiendra aussi nos dépendances externes comme **twig** par exemple.
 
 N'oubliez pas d'ajouter le dossier vendor dans le fichier `.gitignore`
+
+*Je vous invite à regarder les fichiers générés par composer pour comprendre unpeu mieux le fonctionnement de son autoload.*
+
+## v0.4 - Index.php
+
+Voilà, on rentre enfin dans le vif du sujet, on va pouvoir écrire nos premières lignes de codes. On commence évidemment par notre fichier `index.php`, ce sera la porte d'entrée de notre application web.
+
+À ce stade, il faudra créer votre premier `VirtualHost`, pour ma part j'utilise **apache2** :
+```apacheconfig
+#/etc/apache2/sites-available/php-poo-mvc.conf
+<VirtualHost *:80>
+    ServerName php-poo-mvc.dev
+    DocumentRoot /home/thomas/Developpements/github.com/TBoileau/php-poo-mvc/web
+    SetEnv ENV "dev"
+    <Directory /home/thomas/Developpements/github.com/TBoileau/php-poo-mvc/web>
+        Require all granted
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+        <IfModule mod_rewrite.c>
+            Options -MultiViews
+            RewriteEngine On
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^(.*)$ index.php [QSA,L]
+        </IfModule>
+    </Directory>
+</VirtualHost>
+```
+
+N'oublions pas d'ajouter `php-poo-mvc.dev` dans notre fichier `etc/hosts` pour lui préciser que ce nom de domaine doit pointer en local (sur notre machine et pas sur internet).
+```
+127.0.0.1   php-poo-mvc.dev
+```
+
+Maintenant activons notre **VirtualHost** avec la commande suivante : `sudo a2ensite php-poo-mvc`. Et enfin pour activer notre nouvelle configuration, il faut relancer **apache2** avec la commande suivante `sudo service apache2 reload`.
+
+Revenons un instant sur notre **VirtualHost**, il y a une ligne que j'aimerais détailler : `SetEnv ENV "dev"`. Comme vous le savez, lorsque nous travaillons en local, et donc en environnement de développement, il est intelligent de distinguer les différents environnement, car peut être qu'en production nous n'afficherons pas les erreurs de PHP. C'est pour cela, que j'ai créé une variable d'environnement qui s'appelle `ENV`.
