@@ -13,12 +13,14 @@ class DefaultController extends Controller
 
     public function indexAction()
     {
-        echo "Hallo world !";
+        $this->render("index.html.twig");
     }
 
     public function fooAction($bar)
     {
-        echo $bar;
+        $this->render("foo.html.twig", [
+            "bar" => $bar
+        ]);
     }
 
     public function redirectionAction($bar)

@@ -180,3 +180,13 @@ Procédure :
 Le contrôleur frontale est une classe abstraite qui nous permettra de simplifier le développement de notre application. Il évoluera au fur et à mesure du projet. Par conséquent, chaque contrôleur dans `src/Controller` sera une classe enfant du contrôleur frontal.
 
 Pour le moment, nous avons simplement implémenter une méthode permettant de faire une redirection, et pour cela nous avons besoin du routeur. N'oublions pas non plus de passer notre requête dans le constructeur pour pouvoir récupérer si besoin les données des superglobales.
+
+## v0.8 - Twig
+
+Nous allons maintenant intégrer twig à notre projet, pour simplifier l'écriture des vues.
+
+Dans un premier temps, nous allons installer la dépendances avec **composer** : `composer require twig/twig`.
+
+Une fois que votre dossier `vendor` est à jour, il faut paramétrer twig, et nous faire cela dans notre contrôleur frontal. Nous allons donc implémenter une nouvelle méthode de notre contrôleur frontal qui nous permettra d'afficher une vue simplement.
+
+Nous allons maintenant créer notre premier template twig. L'une des forces de twig est de pouvoir gérer nos vues en utilisant la notion d'héritage, permettant ainsi de ne garder que le strict minimum dans notre vue. Je vous invite à regarder chaque vue pour comprendre le procédé d'héritage.
