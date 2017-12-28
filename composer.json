@@ -1,0 +1,13 @@
+{
+    "name": "tboileau/php-poo-mvc",
+    "description": "Concevoir un framework PHP POO MVC",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "TBoileau",
+            "email": "t-boileau@email.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
