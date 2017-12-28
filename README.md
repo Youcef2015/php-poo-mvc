@@ -41,3 +41,9 @@ Would you like to define your dev dependencies (require-dev) interactively [yes]
 Do you confirm generation [yes]?
 ```
 
+## v0.2 - Création des dossiers
+
+Maintenant que notre projet est prêt à démarrer, il faut créer les dossiers :
+* **app** contiendra l'ensemble des classes de notre *framework maison*
+* **src** contiendra nos contrôleurs, modèles et vues
+* **web** contiendra tous les fichiers que seul l'utilisateur aura accès
