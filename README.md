@@ -190,3 +190,14 @@ Dans un premier temps, nous allons installer la dépendances avec **composer** :
 Une fois que votre dossier `vendor` est à jour, il faut paramétrer twig, et nous faire cela dans notre contrôleur frontal. Nous allons donc implémenter une nouvelle méthode de notre contrôleur frontal qui nous permettra d'afficher une vue simplement.
 
 Nous allons maintenant créer notre premier template twig. L'une des forces de twig est de pouvoir gérer nos vues en utilisant la notion d'héritage, permettant ainsi de ne garder que le strict minimum dans notre vue. Je vous invite à regarder chaque vue pour comprendre le procédé d'héritage.
+
+## v0.9 - Classe Response
+
+À ce stade, votre petit framework devrait être fonctionnel. Mais nous allons ocntinuer de l'otpimiser. Rappelez-vous, nous avons implémenter la classe `Request` car dans la théorie, le client envoie une requête qui est interprétée par le serveur web, et ce dernier renvoie du html. Dans notre framework nous allons plutôt parler de **réponse**. 
+Procédure :
+* Le framework reçoit une requête
+* Le routeur pointe vers la bonne action d'un contrôleur
+* Le contrôleur renvoie une réponse
+* Notre index envoie la réponse au client
+
+Nous allons créer autant de classe `Response` qu'il y a de réponse différente. Actuellement, nous avons l'affichage d'une vue, la redirection et pour l'occasion j'ai créé la classe `JsonResponse`.

@@ -25,8 +25,13 @@ $router->addRoute(new Route("foo", "/foo/:bar", ["bar" => "[\w]+"], DefaultContr
 $router->addRoute(new Route("redirection", "/redirection/:bar", ["bar" => "[\w]+"], DefaultController::class, "redirectionAction"));
 
 try{
+    // On récupère la route correspondant à la requête
     $route = $router->getRouteByRequest();
-    $route->call($request, $router);
+    // On récupère une réponse en appelant dynamiquement l'action d'un contrôleur
+    $response = $route->call($request, $router);
+    // On envoie la réponse au client
+    $response->send();
 }catch (\Exception $e) {
+    // En cas d'erreur, nous affichons l'erreur
     echo $e->getMessage();
 }

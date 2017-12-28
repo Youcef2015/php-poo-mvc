@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Response\JsonResponse;
+use App\Response\RedirectResponse;
+use App\Response\Response;
 use App\Router\Router;
 
 /**
@@ -43,27 +46,43 @@ class Controller
     }
 
     /**
-     * @param $routeName
+     * @param string $routeName
      * @param array $args
+     * @return RedirectResponse
      */
     protected function redirect($routeName, $args = [])
     {
         // On récupère la route par son nom
         $route = $this->router->getRoute($routeName);
-        // On effectue une redirection en générant l'url, $args contient les valeurs de chaque paramètre de la route
-        header(sprintf("location: %s", $route->generateUrl($args)));
+        // On génère l'url, $args contient les valeurs de chaque paramètre de la route
+        $url = $route->generateUrl($args);
+        // On renvoie un objet RedirectResponse
+        return new RedirectResponse($url);
     }
 
     /**
      * @param string $filename
      * @param array $data
+     * @return Response
      */
     protected function render($filename, $data = [])
     {
         // On charge notre vue
         $view = $this->twig->load($filename);
-        // On affiche notre vue en lui passant nos données pour que la vue puisse les exploiter
-        echo $view->render($data);
+        // On récupère le contenu de la vue en lui passant nos données pour que la vue puisse les exploiter
+        $content = $view->render($data);
+        // On renvoie un objet Response
+        return new Response($content);
+    }
+
+    /**
+     * @param mixed $data
+     * @return JsonResponse
+     */
+    protected function json($data)
+    {
+        // On renvoie un objet JsonResponse
+        return new JsonResponse($data);
     }
 
 }

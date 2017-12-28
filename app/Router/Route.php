@@ -3,6 +3,7 @@
 namespace App\Router;
 
 use App\Request;
+use App\Response\ResponseInterface;
 
 /**
  * Class Route
@@ -60,7 +61,7 @@ class Route
     /**
      * @param Request $request
      * @param Router $router
-     * @return mixed
+     * @return ResponseInterface
      */
     public function call(Request $request, Router $router)
     {
