@@ -2,11 +2,13 @@
 
 namespace Controller;
 
+use App\Controller;
+
 /**
  * Class DefaultController
  * @package Controller
  */
-class DefaultController
+class DefaultController extends Controller
 {
 
     public function indexAction()
@@ -17,5 +19,10 @@ class DefaultController
     public function fooAction($bar)
     {
         echo $bar;
+    }
+
+    public function redirectionAction($bar)
+    {
+        $this->redirect("foo", ["bar" => $bar]);
     }
 }

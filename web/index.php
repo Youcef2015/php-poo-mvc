@@ -22,9 +22,11 @@ $router->addRoute(new Route("index", "/", [], DefaultController::class, "indexAc
 
 $router->addRoute(new Route("foo", "/foo/:bar", ["bar" => "[\w]+"], DefaultController::class, "fooAction"));
 
+$router->addRoute(new Route("redirection", "/redirection/:bar", ["bar" => "[\w]+"], DefaultController::class, "redirectionAction"));
+
 try{
     $route = $router->getRouteByRequest();
-    $route->call();
+    $route->call($request, $router);
 }catch (\Exception $e) {
     echo $e->getMessage();
 }

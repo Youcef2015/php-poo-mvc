@@ -174,3 +174,9 @@ Procédure :
     * On va tester chaque route pour retourner la première qui correspond à la requête
     * La méthode `Route::match` permet dans un premier temps de tester si c'est la bonne et de récupérer les paramètres de la requête
 * La méthode `Route::call` appelle dynamiquement l'action du contrôleur
+
+## v0.7 - Contrôleur frontal
+
+Le contrôleur frontale est une classe abstraite qui nous permettra de simplifier le développement de notre application. Il évoluera au fur et à mesure du projet. Par conséquent, chaque contrôleur dans `src/Controller` sera une classe enfant du contrôleur frontal.
+
+Pour le moment, nous avons simplement implémenter une méthode permettant de faire une redirection, et pour cela nous avons besoin du routeur. N'oublions pas non plus de passer notre requête dans le constructeur pour pouvoir récupérer si besoin les données des superglobales.
