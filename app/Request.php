@@ -137,4 +137,12 @@ class Request
     {
         return getenv($key);
     }
+
+    /**
+     * @return string
+     */
+    public function getUri()
+    {
+        return $this->server["REQUEST_URI"];
+    }
 }

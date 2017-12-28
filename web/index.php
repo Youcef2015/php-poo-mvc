@@ -4,6 +4,9 @@
 require __DIR__."/../vendor/autoload.php";
 
 use App\Request;
+use App\Router\Route;
+use App\Router\Router;
+use Controller\DefaultController;
 
 $request = Request::createFromGlobals();
 
@@ -13,4 +16,15 @@ if($request->getEnv("ENV") == "dev") {
     ini_set('display_errors', 1);
 }
 
-echo "Hello world !";
+$router = new Router($request);
+
+$router->addRoute(new Route("index", "/", [], DefaultController::class, "indexAction"));
+
+$router->addRoute(new Route("foo", "/foo/:bar", ["bar" => "[\w]+"], DefaultController::class, "fooAction"));
+
+try{
+    $route = $router->getRouteByRequest();
+    $route->call();
+}catch (\Exception $e) {
+    echo $e->getMessage();
+}

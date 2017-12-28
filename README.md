@@ -148,4 +148,29 @@ Nous allons donc commencer par implémenter la classe `Request`. Cette classe no
 
 À ce stade, vous êtes censé pouvoir comprendre facilement la classe `Request`. La méthode static `createFromGlobals` permet de récupérer une instance de notre classe `Request`, en suvant légèrement les principes du **Singleton**.
 
-Modifions maintenant un petit peu notre fichier `web/index.php` pour prendre en compte
+Modifions maintenant un petit peu notre fichier `web/index.php` pour prendre en compte.
+
+## v0.6 - Routeur
+
+On corse un peu les choses et on passe maintenant à notre routeur. Mais qu'est ce qu'un **routeur** ? C'est un ensemble de classes qui nous permettra de de rediriger une requête vers la bonne action d'un contrôleur.
+
+Dans un premier temps, nous allons implémenter la classe `Route`. Une route se définit par un nom unique, un chemin, un ensemble de paramètres, le contrôleur et l'action vers lesquel elle pointe.
+
+Passons maintenant à la classe `Router`, cette dernière stockera l'ensemble des routes de notre application web. Mais pour mieux visualiser, j'ai créé un **contrôleur** et une **action**.
+
+Normalement les classes sont suffisamment bien commentées pour que vous pouissiez vous y retrouver.
+
+Description d'un route, dans l'ordre des arguments du constructeur :
+* `name` : Nom de la route, il est censé être unique
+* `path` : Chemin de la route, chaque nom de paramètre doit être précédé de `:`, exemple avec le chemin `/foo/:bar`
+* `parameters` : Un tableau contenant la définition de chaque paramètre, l'index correspond au nom du paramètre et sa valeur à la regexp, exemple avec `/foo/:bar` : ` ["bar" => "[\w]*"]`. Remarque : Si la regexp se termine par `+` alors cela veut dire que le paramètre est obligatoire, dans le cas contraire cela doit être `*`
+* `controller` : Nom de la classe
+* `action` : Nom de la méthode du contrôleur
+
+Procédure : 
+* On instancie notre routeur (cf `web/index.php`)
+* On ajoute de nouvelles routes dans notre routeur (cf `Router::addRoute`)
+* On appelle la méthode `Router::getCurrentRoute` pour récupérer notre route associé à la requête de l'utilisateur
+    * On va tester chaque route pour retourner la première qui correspond à la requête
+    * La méthode `Route::match` permet dans un premier temps de tester si c'est la bonne et de récupérer les paramètres de la requête
+* La méthode `Route::call` appelle dynamiquement l'action du contrôleur
