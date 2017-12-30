@@ -234,3 +234,11 @@ Dans un premier temps, nous allons modifier notre **VirtualHost** en créant de 
 
 Ce que nous allons créer est un petit [ORM (Object Relational Mapping)](https://fr.wikipedia.org/wiki/Mapping_objet-relationnel). Le but est de centraliser tous nos traitements de manière plus générique. En gros, je n'ai pas envie de devoir écrire plusieurs fois une requête du style `UPDATE ma_table SET mon_chhamp=ma_valeur`, pourquoi ne pas implémenter une méthode pour n'écrire qu'une seule fois cette requête et qu'elle s'adapter à toutes les situations ?
 
+## v0.11 - Routing configuration
+
+On a déà vu ensemble comment créer un routeur. Seulement voilà, la définition de nos routes se font dans le fichier `web/index.php`, ce qui pourrait être optimisé.
+
+Nous allons donc utiliser un fichier de type **yaml** pour lister les routes de notre projet. Et pour cela, nous allons utiliser une librairie, ou plus exactement le [composant **yaml** du framework Symfony](http://symfony.com/doc/current/components/yaml.html).
+
+Nous allons utiliser composer pour l'installer avec la commande suivante `composer require symfony/yaml`.
+

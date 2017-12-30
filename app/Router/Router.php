@@ -3,6 +3,7 @@
 namespace App\Router;
 
 use App\Request;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Router
@@ -27,6 +28,18 @@ class Router
     public function __construct(Request $request)
     {
         $this->request = $request;
+    }
+
+    /**
+     * @param string $file
+     */
+    public function loadYaml($file)
+    {
+        // On charge le fichier routing.yml
+        $routes = Yaml::parseFile($file);
+        foreach($routes as $name => $route){
+            $this->addRoute(new Route($name, $route["path"], $route["parameters"], $route["controller"], $route["action"]));
+        }
     }
 
     /**

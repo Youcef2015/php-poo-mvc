@@ -1,0 +1,25 @@
+index:
+    path: /
+    parameters: {}
+    controller: Controller\DefaultController
+    action: indexAction
+show:
+    path: /show/:id
+    parameters: {id: '[\d]+'}
+    controller: Controller\DefaultController
+    action: showAction
+add:
+    path: /
+    parameters: {}
+    controller: Controller\DefaultController
+    action: addAction
+update:
+    path: /update/:id
+    parameters: {id: '[\d]+'}
+    controller: Controller\DefaultController
+    action: updateAction
+delete:
+    path: /delete/:id
+    parameters: {id: '[\d]+'}
+    controller: Controller\DefaultController
+    action: deleteAction
