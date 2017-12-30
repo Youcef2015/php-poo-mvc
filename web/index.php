@@ -20,9 +20,13 @@ $router = new Router($request);
 
 $router->addRoute(new Route("index", "/", [], DefaultController::class, "indexAction"));
 
-$router->addRoute(new Route("foo", "/foo/:bar", ["bar" => "[\w]+"], DefaultController::class, "fooAction"));
+$router->addRoute(new Route("add", "/add", [], DefaultController::class, "addAction"));
 
-$router->addRoute(new Route("redirection", "/redirection/:bar", ["bar" => "[\w]+"], DefaultController::class, "redirectionAction"));
+$router->addRoute(new Route("update", "/update/:id", ["id" => "[\d]+"], DefaultController::class, "updateAction"));
+
+$router->addRoute(new Route("delete", "/delete/:id", ["id" => "[\d]+"], DefaultController::class, "deleteAction"));
+
+$router->addRoute(new Route("show", "/show/:id", ["id" => "[\d]+"], DefaultController::class, "showAction"));
 
 try{
     // On récupère la route correspondant à la requête

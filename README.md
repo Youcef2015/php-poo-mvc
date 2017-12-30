@@ -201,3 +201,36 @@ Procédure :
 * Notre index envoie la réponse au client
 
 Nous allons créer autant de classe `Response` qu'il y a de réponse différente. Actuellement, nous avons l'affichage d'une vue, la redirection et pour l'occasion j'ai créé la classe `JsonResponse`.
+
+## v0.10 - Base de données
+
+Nous entrons maintenant dans la partie l'une des partie les plus complexe de notre framework maison : les intéraction avec une base de données.
+
+Dans un premier temps, nous allons modifier notre **VirtualHost** en créant de nouvelles variables d'environnement. Elles nous permettrons de récupérer facilement les informations pour se connecter à la base de données. Pourquoi passer par des variables d'environnement ? Car cela évite d'écrire les informations en clair dans nos fichiers et donc cela apporte plus de sécurité.
+```apacheconfig
+#/etc/apache2/sites-available/php-poo-mvc.conf
+<VirtualHost *:80>
+    ServerName php-poo-mvc.dev
+    DocumentRoot /home/thomas/Developpements/github.com/TBoileau/php-poo-mvc/web
+    SetEnv ENV "dev"
+    SetEnv DB_HOST "localhost"
+    SetEnv DB_NAME "framework"
+    SetEnv DB_USER "root"
+    SetEnv DB_PASSWORD "azerty"
+    <Directory /home/thomas/Developpements/github.com/TBoileau/php-poo-mvc/web>
+        Require all granted
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+        <IfModule mod_rewrite.c>
+            Options -MultiViews
+            RewriteEngine On
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^(.*)$ index.php [QSA,L]
+        </IfModule>
+    </Directory>
+</VirtualHost>
+```
+
+Ce que nous allons créer est un petit [ORM (Object Relational Mapping)](https://fr.wikipedia.org/wiki/Mapping_objet-relationnel). Le but est de centraliser tous nos traitements de manière plus générique. En gros, je n'ai pas envie de devoir écrire plusieurs fois une requête du style `UPDATE ma_table SET mon_chhamp=ma_valeur`, pourquoi ne pas implémenter une méthode pour n'écrire qu'une seule fois cette requête et qu'elle s'adapter à toutes les situations ?
+

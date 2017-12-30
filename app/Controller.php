@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\ORM\Database;
 use App\Response\JsonResponse;
 use App\Response\RedirectResponse;
 use App\Response\Response;
@@ -29,6 +30,11 @@ class Controller
     private $twig;
 
     /**
+     * @var Database
+     */
+    private $database;
+
+    /**
      * Controller constructor.
      * @param Request $request
      * @param Router $router
@@ -37,6 +43,7 @@ class Controller
     {
         $this->request = $request;
         $this->router = $router;
+        $this->database = Database::getInstance($request);
         // On instancie le loader de twig en lui précisant dans quel dossier se trouvera nos vues
         $loader = new \Twig_Loader_Filesystem([__DIR__.'/../src/View']);
         // On instancie l'environnement de twig, qui nous permettra de générer nos vues
@@ -83,6 +90,14 @@ class Controller
     {
         // On renvoie un objet JsonResponse
         return new JsonResponse($data);
+    }
+
+    /**
+     * @return Database
+     */
+    protected function getDatabase()
+    {
+        return $this->database;
     }
 
 }

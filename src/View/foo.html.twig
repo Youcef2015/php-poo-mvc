@@ -3,7 +3,8 @@
 {% block body %}
     <div class="row">
         <div class="col-12">
-            <h1>Salut {{ bar }} !</h1>
+            <h1>Salut {{ foo.name }} [{{ foo.id }}] !</h1>
+            {{ foo.addedAt|date("d/m/Y H:i:s") }}
         </div>
     </div>
 {% endblock %}

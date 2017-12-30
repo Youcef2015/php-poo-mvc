@@ -3,6 +3,7 @@
 namespace Controller;
 
 use App\Controller;
+use Model\Foo;
 
 /**
  * Class DefaultController
@@ -16,26 +17,63 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render("index.html.twig");
-    }
-
-    /**
-     * @param string $bar
-     * @return \App\Response\Response
-     */
-    public function fooAction($bar)
-    {
-        return $this->render("foo.html.twig", [
-            "bar" => $bar
+        $foos = $this->getDatabase()->getManager(Foo::class)->findAll();
+//        $foos = $this->getDatabase()->getManager(Foo::class)->findBy(["name" => "Bar"],["addedAt" => "desc"]);
+//        $foos = $this->getDatabase()->getManager(Foo::class)->findByName("Bar",["addedAt" => "desc"]);
+        return $this->render("index.html.twig", [
+            "foos" => $foos
         ]);
     }
 
     /**
-     * @param string $bar
+     * @param integer $id
+     * @return \App\Response\Response
+     */
+    public function showAction($id)
+    {
+        $foo = $this->getDatabase()->getManager(Foo::class)->find($id);
+//         $foo = $this->getDatabase()->getManager(Foo::class)->findOneBy(["id" => $bar]);
+//         $foo = $this->getDatabase()->getManager(Foo::class)->findOneById($bar);
+        return $this->render("foo.html.twig", [
+            "foo" => $foo
+        ]);
+    }
+
+    /**
      * @return \App\Response\RedirectResponse
      */
-    public function redirectionAction($bar)
+    public function addAction()
     {
-        return $this->redirect("foo", ["bar" => $bar]);
+        $manager = $this->getDatabase()->getManager(Foo::class);
+        $foo = new Foo();
+        $foo->setName("Bar");
+        $foo->setAddedAt(new \DateTime());
+        $manager->persist($foo);
+        return $this->redirect("show", ["id" => $foo->getId()]);
+    }
+
+    /**
+     * @param $id
+     * @return \App\Response\RedirectResponse
+     */
+    public function updateAction($id)
+    {
+        $manager = $this->getDatabase()->getManager(Foo::class);
+        $foo = $manager->find($id);
+        $foo->setName("Edit bar");
+        $manager->persist($foo);
+        return $this->redirect("show", ["id" => $foo->getId()]);
+    }
+
+    /**
+     * @param $id
+     * @return \App\Response\RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        $manager = $this->getDatabase()->getManager(Foo::class);
+        $foo = $manager->find($id);
+        $manager->remove($foo);
+        return $this->redirect("index");
     }
 }
