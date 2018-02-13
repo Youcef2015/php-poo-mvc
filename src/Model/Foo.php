@@ -3,6 +3,7 @@
 namespace Model;
 
 use App\ORM\Model;
+use Manager\FooManager;
 
 class Foo extends Model
 {
@@ -44,6 +45,14 @@ class Foo extends Model
                 ]
             ]
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getManager()
+    {
+        return FooManager::class;
     }
 
     /**
@@ -93,5 +102,6 @@ class Foo extends Model
     {
         $this->addedAt = $addedAt;
     }
+
 
 }

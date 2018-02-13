@@ -16,6 +16,11 @@ class Database
     private $pdo;
 
     /**
+     * @var array
+     */
+    private $managers = [];
+
+    /**
      * @var Database
      */
     private static $databaseInstance;
@@ -55,6 +60,8 @@ class Database
 
     public function getManager($model)
     {
-        return new Manager($this->pdo, $model);
+        $managerClass = $model::getManager();
+        $this->managers[$model] = $this->managers[$model] ?? new $managerClass($this->pdo, $model);
+        return $this->managers[$model];
     }
 }

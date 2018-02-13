@@ -15,11 +15,9 @@ class DefaultController extends Controller
     /**
      * @return \App\Response\Response
      */
-    public function indexAction()
+    public function indexAction($page = 1)
     {
-        $foos = $this->getDatabase()->getManager(Foo::class)->findAll();
-//        $foos = $this->getDatabase()->getManager(Foo::class)->findBy(["name" => "Bar"],["addedAt" => "desc"]);
-//        $foos = $this->getDatabase()->getManager(Foo::class)->findByName("Bar",["addedAt" => "desc"]);
+        $foos = $this->getDatabase()->getManager(Foo::class)->getPaginatedFoos($page);
         return $this->render("index.html.twig", [
             "foos" => $foos
         ]);

@@ -27,6 +27,11 @@ class Route
     private $parameters;
 
     /**
+     * @var array
+     */
+    private $defaults;
+
+    /**
      * @var string
      */
     private $controller;
@@ -49,13 +54,14 @@ class Route
      * @param string $controller
      * @param string $action
      */
-    public function __construct($name, $path, array $parameters, $controller, $action)
+    public function __construct($name, $path, array $parameters, $controller, $action, $defaults = [])
     {
         $this->name = $name;
         $this->path = $path;
         $this->parameters = $parameters;
         $this->controller = $controller;
         $this->action = $action;
+        $this->defaults = $defaults;
     }
 
     /**
@@ -88,6 +94,13 @@ class Route
         }
         // Sinon on remplit notre tableau d'arguments avec les valeurs de chaque paramètre de notre route
         $this->args = array_slice($matches,1);
+        $defaultsArgs = array_keys($this->defaults);
+        foreach($this->args as $key => &$value) {
+            $index = array_search($key,$defaultsArgs);
+            if($index !== FALSE && $value === ""){
+                $value = $this->defaults[$defaultsArgs[$index]];
+            }
+        }
         return true;
     }
 

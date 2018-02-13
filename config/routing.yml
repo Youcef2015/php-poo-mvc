@@ -1,15 +1,10 @@
-index:
-    path: /
-    parameters: {}
-    controller: Controller\DefaultController
-    action: indexAction
 show:
     path: /show/:id
     parameters: {id: '[\d]+'}
     controller: Controller\DefaultController
     action: showAction
 add:
-    path: /
+    path: /add
     parameters: {}
     controller: Controller\DefaultController
     action: addAction
@@ -23,3 +18,9 @@ delete:
     parameters: {id: '[\d]+'}
     controller: Controller\DefaultController
     action: deleteAction
+index:
+    path: /:page
+    parameters: {page: '[\d]*'}
+    defaults: {page: 1}
+    controller: Controller\DefaultController
+    action: indexAction

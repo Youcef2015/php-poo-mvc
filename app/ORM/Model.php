@@ -11,12 +11,17 @@ abstract class Model
     /**
      * @var array
      */
-    public $orignalData = [];
+    public $originalData = [];
 
     /**
      * @return array
      */
     public abstract static function metadata();
+
+    /**
+     * @return string
+     */
+    public abstract static function getManager();
 
     /**
      * @param array $result

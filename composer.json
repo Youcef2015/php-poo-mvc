@@ -18,5 +18,10 @@
             "App\\": "app",
             "": "src"
         }
+    },
+    "scripts": {
+        "serve": [
+            "ENV=dev DB_HOST=127.0.0.1 DB_NAME=foo DB_USER=root DB_PASSWORD=9wf23r2 php -S localhost:8002 -t web/"
+        ]
     }
 }

@@ -11,7 +11,7 @@ class Manager
     /**
      * @var \PDO
      */
-    private $pdo;
+    protected $pdo;
 
     /**
      * @var string
