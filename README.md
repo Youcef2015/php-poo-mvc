@@ -175,6 +175,8 @@ Procédure :
     * La méthode `Route::match` permet dans un premier temps de tester si c'est la bonne et de récupérer les paramètres de la requête
 * La méthode `Route::call` appelle dynamiquement l'action du contrôleur
 
+Routeur basé en partie sur le tutoriel de Grafikart.
+
 ## v0.7 - Contrôleur frontal
 
 Le contrôleur frontale est une classe abstraite qui nous permettra de simplifier le développement de notre application. Il évoluera au fur et à mesure du projet. Par conséquent, chaque contrôleur dans `src/Controller` sera une classe enfant du contrôleur frontal.
